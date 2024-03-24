@@ -12,15 +12,13 @@
 .coverage
 .coverage.*
 __pycache__/
-_build/
 *.npz
 *.pth
 .pytype/
 git_rewrite_commit_history.sh
 
-# Setuptools distribution and build folders.
+# Setuptools distribution 
 /dist/
-/build
 keys/
 
 # Virtualenv

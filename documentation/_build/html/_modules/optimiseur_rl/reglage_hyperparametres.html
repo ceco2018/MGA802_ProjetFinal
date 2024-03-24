@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>optimiseur_rl.reglage_hyperparametres &mdash; Documentation Optimiseur RL 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=05dadb3a"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/translations.js?v=d99ca74e"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Optimiseur RL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">MGA802_Python</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Optimiseur RL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Code du module</a></li>
+      <li class="breadcrumb-item active">optimiseur_rl.reglage_hyperparametres</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Code source de optimiseur_rl.reglage_hyperparametres</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">stable_baselines3</span> <span class="kn">import</span> <span class="n">A2C</span><span class="p">,</span> <span class="n">DDPG</span><span class="p">,</span> <span class="n">PPO</span><span class="p">,</span> <span class="n">SAC</span><span class="p">,</span> <span class="n">TD3</span>
+
+
+<div class="viewcode-block" id="selectionner_hyperparametres">
+<a class="viewcode-back" href="../../optimiseur_rl.html#optimiseur_rl.reglage_hyperparametres.selectionner_hyperparametres">[docs]</a>
+<span class="k">def</span> <span class="nf">selectionner_hyperparametres</span><span class="p">(</span><span class="n">choix_algorithme</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sélectionne et retourne les hyperparamètres appropriés pour un algorithme donné.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        choix_algorithme (type): L&#39;algorithme de RL pour lequel les hyperparamètres doivent être sélectionnés.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: Un dictionnaire contenant les hyperparamètres pour l&#39;algorithme choisi.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hyperparametres</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">choix_algorithme</span> <span class="o">==</span> <span class="n">A2C</span><span class="p">:</span>
+        <span class="n">hyperparametres</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">gamma</span><span class="o">=</span><span class="mf">0.999</span><span class="p">,</span>            <span class="c1"># (float) Le facteur d&#39;escompte</span>
+            <span class="n">n_steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="mi">6</span><span class="p">),</span>    <span class="c1"># (int) Le nombre d&#39;étapes à exécuter pour chaque environnement par mise à jour</span>
+            <span class="n">ent_coef</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>          <span class="c1"># (float) Coefficient d&#39;entropie pour le calcul de la perte</span>
+            <span class="n">max_grad_norm</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>      <span class="c1"># (float) Valeur maximale pour le clipping de gradient</span>
+            <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.0007</span><span class="p">,</span>   <span class="c1"># (float) Taux d&#39;apprentissage</span>
+            <span class="n">alpha</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span>             <span class="c1"># (float) Paramètre de décroissance RMSProp (par défaut : 0.99)</span>
+            <span class="n">gae_lambda</span><span class="o">=</span><span class="mf">0.88</span><span class="p">,</span>        <span class="c1"># (float) Paramètre lambda pour GAE</span>
+        <span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">choix_algorithme</span> <span class="o">==</span> <span class="n">DDPG</span><span class="p">:</span>
+        <span class="n">hyperparametres</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">gamma</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span>              <span class="c1"># (float) Le facteur d&#39;escompte</span>
+            <span class="n">nb_train_steps</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>       <span class="c1"># (int) Le nombre d&#39;étapes d&#39;entraînement</span>
+            <span class="n">tau</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>      <span class="c1"># (float) Le coefficient de mise à jour souple (garder les anciennes valeurs, entre 0 et 1)</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>          <span class="c1"># (int) La taille du lot pour l&#39;apprentissage de la politique</span>
+            <span class="n">actor_lr</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span>         <span class="c1"># (float) Le taux d&#39;apprentissage de l&#39;acteur</span>
+            <span class="n">critic_lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>         <span class="c1"># (float) Le taux d&#39;apprentissage du critique</span>
+        <span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">choix_algorithme</span> <span class="o">==</span> <span class="n">PPO</span><span class="p">:</span>
+        <span class="n">hyperparametres</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">gamma</span><span class="o">=</span><span class="mf">0.999</span><span class="p">,</span>            <span class="c1"># (float) Le facteur d&#39;escompte</span>
+            <span class="n">n_steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="mi">6</span><span class="p">),</span>    <span class="c1"># (int) Le nombre d&#39;étapes à exécuter pour chaque environnement par mise à jour</span>
+            <span class="n">ent_coef</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>          <span class="c1"># (float) Coefficient d&#39;entropie pour le calcul de la perte</span>
+            <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.00025</span><span class="p">,</span>  <span class="c1"># (float) Taux d&#39;apprentissage</span>
+            <span class="n">vf_coef</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>            <span class="c1"># (float) Coefficient de la fonction de valeur pour le calcul de la perte</span>
+            <span class="n">max_grad_norm</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>      <span class="c1"># (float) Valeur maximale pour le clipping de gradient</span>
+            <span class="n">lam</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span>               <span class="c1"># (float) Facteur d&#39;échange de biais par rapport à la variance pour GAE</span>
+            <span class="n">nminibatches</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>         <span class="c1"># (int) Nombre de minibatchs d&#39;entraînement par mise à jour.</span>
+            <span class="n">noptepochs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>           <span class="c1"># (int) Nombre d&#39;époques lors de l&#39;optimisation du surrogate</span>
+            <span class="n">cliprange</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>          <span class="c1"># (float ou callable) Paramètre de clipping, peut être une fonction</span>
+        <span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">choix_algorithme</span> <span class="o">==</span> <span class="n">SAC</span><span class="p">:</span>
+        <span class="n">hyperparametres</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">gamma</span><span class="o">=</span><span class="mf">0.999</span><span class="p">,</span>            <span class="c1"># (float) Le facteur d&#39;escompte</span>
+            <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.0003</span><span class="p">,</span>   <span class="c1"># (float) Taux d&#39;apprentissage</span>
+            <span class="n">buffer_size</span><span class="o">=</span><span class="mi">50000</span><span class="p">,</span>      <span class="c1"># (int) Taille du buffer de replay</span>
+            <span class="n">learning_starts</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>    <span class="c1"># (int) Combien d&#39;étapes du modèle collecter des transitions avant de commencer</span>
+            <span class="n">train_freq</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>           <span class="c1"># (int) Mettre à jour le modèle tous les train_freq pas.</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>          <span class="c1"># (int) Taille du minibatch pour chaque mise à jour de gradient</span>
+            <span class="n">tau</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span>              <span class="c1"># (float) Le coefficient de mise à jour souple (“mise à jour polyak”, entre 0 et 1)</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>              <span class="c1"># (int) verbose : 0 aucun, 1 information d&#39;entraînement, 2 débogage tensorflow</span>
+        <span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">choix_algorithme</span> <span class="o">==</span> <span class="n">TD3</span><span class="p">:</span>
+        <span class="n">hyperparametres</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">gamma</span><span class="o">=</span><span class="mf">0.999</span><span class="p">,</span>            <span class="c1"># (float) Le facteur d&#39;escompte</span>
+            <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.0003</span><span class="p">,</span>   <span class="c1"># (float) Taux d&#39;apprentissage</span>
+            <span class="n">buffer_size</span><span class="o">=</span><span class="mi">50000</span><span class="p">,</span>      <span class="c1"># (int) Taille du buffer de replay</span>
+            <span class="n">learning_starts</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>    <span class="c1"># (int) Combien d&#39;étapes du modèle collecter des transitions avant de commencer</span>
+            <span class="n">train_freq</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>         <span class="c1"># (int) Mettre à jour le modèle tous les train_freq pas.</span>
+            <span class="n">gradient_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>     <span class="c1"># (int) Combien de mises à jour de gradient après chaque étape</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>         <span class="c1"># (int) Taille du minibatch pour chaque mise à jour de gradient</span>
+            <span class="n">tau</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span>              <span class="c1"># (float) Le coefficient de mise à jour souple (“mise à jour polyak”, entre 0 et 1)</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>              <span class="c1"># (int) verbose : 0 aucun, 1 information d&#39;entraînement, 2 débogage tensorflow</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">hyperparametres</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur 2024, Cedric Foffe.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

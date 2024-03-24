@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>optimiseur_rl package &mdash; Documentation Optimiseur RL 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=05dadb3a"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=d99ca74e"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="prev" title="main module" href="main.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Optimiseur RL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">MGA802_Python</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">optimiseur_rl package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-optimiseur_rl.LecteurYAML">optimiseur_rl.LecteurYAML module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#optimiseur_rl.LecteurYAML.LecteurYAML"><code class="docutils literal notranslate"><span class="pre">LecteurYAML</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-optimiseur_rl.environnement_minimisation">optimiseur_rl.environnement_minimisation module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv"><code class="docutils literal notranslate"><span class="pre">ProblemMinimizationEnv</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#optimiseur_rl.environnement_minimisation.calculer_recompense"><code class="docutils literal notranslate"><span class="pre">calculer_recompense()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-optimiseur_rl.fonction_recompense">optimiseur_rl.fonction_recompense module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#optimiseur_rl.fonction_recompense.calculer_recompense"><code class="docutils literal notranslate"><span class="pre">calculer_recompense()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-optimiseur_rl.reglage_hyperparametres">optimiseur_rl.reglage_hyperparametres module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#optimiseur_rl.reglage_hyperparametres.selectionner_hyperparametres"><code class="docutils literal notranslate"><span class="pre">selectionner_hyperparametres()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-optimiseur_rl.visualisation">optimiseur_rl.visualisation module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#optimiseur_rl.visualisation.AffichageGraphique"><code class="docutils literal notranslate"><span class="pre">AffichageGraphique</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-optimiseur_rl">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Optimiseur RL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">MGA802_Python</a></li>
+      <li class="breadcrumb-item active">optimiseur_rl package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/optimiseur_rl.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="optimiseur-rl-package">
+<h1>optimiseur_rl package<a class="headerlink" href="#optimiseur-rl-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-optimiseur_rl.LecteurYAML">
+<span id="optimiseur-rl-lecteuryaml-module"></span><h2>optimiseur_rl.LecteurYAML module<a class="headerlink" href="#module-optimiseur_rl.LecteurYAML" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="optimiseur_rl.LecteurYAML.LecteurYAML">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">optimiseur_rl.LecteurYAML.</span></span><span class="sig-name descname"><span class="pre">LecteurYAML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/optimiseur_rl/LecteurYAML.html#LecteurYAML"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optimiseur_rl.LecteurYAML.LecteurYAML" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Classe pour lire des données à partir d’un fichier YAML.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>file_path (str): Le chemin du fichier YAML.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="optimiseur_rl.LecteurYAML.LecteurYAML.importer_donnees_yaml">
+<span class="sig-name descname"><span class="pre">importer_donnees_yaml</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/optimiseur_rl/LecteurYAML.html#LecteurYAML.importer_donnees_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optimiseur_rl.LecteurYAML.LecteurYAML.importer_donnees_yaml" title="Link to this definition"></a></dt>
+<dd><p>Importe les données YAML à partir du fichier.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>dict: Les données YAML sous forme de dictionnaire.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-optimiseur_rl.environnement_minimisation">
+<span id="optimiseur-rl-environnement-minimisation-module"></span><h2>optimiseur_rl.environnement_minimisation module<a class="headerlink" href="#module-optimiseur_rl.environnement_minimisation" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">optimiseur_rl.environnement_minimisation.</span></span><span class="sig-name descname"><span class="pre">ProblemMinimizationEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_objectifs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_contraintes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bornes_variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iterations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/optimiseur_rl/environnement_minimisation.html#ProblemMinimizationEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Env</span></code></p>
+<p>Un environnement pour un problème de minimisation avec des contraintes.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dict_objectifs (dict): Un dictionnaire des fonctions objectifs.
+dict_contraintes (dict): Un dictionnaire des équations de contraintes.
+bornes_variables (list): Les bornes des variables d’entrée.
+n_iterations (int): Le nombre total d’itérations.</p>
+</dd>
+<dt>Attributes:</dt><dd><p>bonus_objectif (int): Bonus pour atteindre l’objectif.
+malus_objectif (int): Malus pour ne pas atteindre l’objectif.
+malus_objectif_constant (int): Malus constant pour le non-respect de l’objectif.
+malus_contrainte (int): Malus pour la violation de la contrainte.
+liste_bonus_malus (tuple): Liste des valeurs de bonus/malus.
+historique_recompense (list): Historique des récompenses.
+historique_valeurs_objectif (list): Historique des valeurs d’objectif.
+historique_actions (list): Historique des actions.
+verifications_contrainte (list): Historique des vérifications de contraintes.
+episode (list): Liste des épisodes.
+valeurs_objectif_prev (numpy.array): Valeurs d’objectif précédentes.
+compteur_true (int): Compteur de respect de contraintes.
+compteur_false (int): Compteur de violation de contraintes.
+compteur_episode (int): Compteur d’épisodes.
+barre_progression (tqdm): Barre de progression.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.bonus_objectif">
+<span class="sig-name descname"><span class="pre">bonus_objectif</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.bonus_objectif" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/optimiseur_rl/environnement_minimisation.html#ProblemMinimizationEnv.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.close" title="Link to this definition"></a></dt>
+<dd><p>Ferme l’environnement.</p>
+<p>Ferme la barre de progression.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.evaluer_objectifs">
+<span class="sig-name descname"><span class="pre">evaluer_objectifs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/optimiseur_rl/environnement_minimisation.html#ProblemMinimizationEnv.evaluer_objectifs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.evaluer_objectifs" title="Link to this definition"></a></dt>
+<dd><p>Évalue les fonctions objectifs pour un vecteur donné.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>x (numpy.array): Le vecteur d’entrée.</p>
+</dd>
+<dt>Returns:</dt><dd><p>list: Une liste des valeurs d’objectif.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.liste_bonus_malus">
+<span class="sig-name descname"><span class="pre">liste_bonus_malus</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(2,</span> <span class="pre">-1,</span> <span class="pre">0,</span> <span class="pre">-5)</span></em><a class="headerlink" href="#optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.liste_bonus_malus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.malus_contrainte">
+<span class="sig-name descname"><span class="pre">malus_contrainte</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-5</span></em><a class="headerlink" href="#optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.malus_contrainte" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.malus_objectif">
+<span class="sig-name descname"><span class="pre">malus_objectif</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.malus_objectif" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.malus_objectif_constant">
+<span class="sig-name descname"><span class="pre">malus_objectif_constant</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.malus_objectif_constant" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/optimiseur_rl/environnement_minimisation.html#ProblemMinimizationEnv.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.reset" title="Link to this definition"></a></dt>
+<dd><p>Réinitialise l’environnement.</p>
+<p>Réinitialise l’environnement à un état aléatoire.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>numpy.array: L’état initial.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/optimiseur_rl/environnement_minimisation.html#ProblemMinimizationEnv.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.step" title="Link to this definition"></a></dt>
+<dd><p>Effectue une étape de l’environnement.</p>
+<p>Effectue une étape de l’environnement en fonction de l’action donnée.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>action (numpy.array): L’action à effectuer.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>tuple: Un tuple contenant l’état, la récompense, un indicateur de vérification de contrainte et</dt><dd><p>des informations supplémentaires.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.verifier_contrainte">
+<span class="sig-name descname"><span class="pre">verifier_contrainte</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/optimiseur_rl/environnement_minimisation.html#ProblemMinimizationEnv.verifier_contrainte"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optimiseur_rl.environnement_minimisation.ProblemMinimizationEnv.verifier_contrainte" title="Link to this definition"></a></dt>
+<dd><p>Vérifie si les contraintes sont respectées pour un vecteur donné.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>x (numpy.array): Le vecteur d’entrée.</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: True si les contraintes sont respectées, False sinon.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="optimiseur_rl.environnement_minimisation.calculer_recompense">
+<span class="sig-prename descclassname"><span class="pre">optimiseur_rl.environnement_minimisation.</span></span><span class="sig-name descname"><span class="pre">calculer_recompense</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count_episode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count_false</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verifier_contrainte</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_objectif_now</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_objectif_prev</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">liste_bonus_malus</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/optimiseur_rl/environnement_minimisation.html#calculer_recompense"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optimiseur_rl.environnement_minimisation.calculer_recompense" title="Link to this definition"></a></dt>
+<dd><p>Calcule la récompense en fonction de différents paramètres.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>count_episode (int): Le numéro de l’épisode actuel.
+count_false (int): Le nombre de violations de contraintes jusqu’à présent.
+count_true (int): Le nombre de respect des contraintes jusqu’à présent.
+verifier_contrainte (bool): Un indicateur indiquant si les contraintes sont respectées.
+vect_objectif_now (numpy.array): Le vecteur d’objectifs actuels.
+vect_objectif_prev (numpy.array): Le vecteur d’objectifs précédents.
+liste_bonus_malus (tupple): Une liste de bonus/malus pour différentes situations.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>tuple: Un tuple contenant la récompense calculée, le nouveau nombre de respect des contraintes,</dt><dd><p>et le nouveau nombre de violations de contraintes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-optimiseur_rl.fonction_recompense">
+<span id="optimiseur-rl-fonction-recompense-module"></span><h2>optimiseur_rl.fonction_recompense module<a class="headerlink" href="#module-optimiseur_rl.fonction_recompense" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="optimiseur_rl.fonction_recompense.calculer_recompense">
+<span class="sig-prename descclassname"><span class="pre">optimiseur_rl.fonction_recompense.</span></span><span class="sig-name descname"><span class="pre">calculer_recompense</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count_episode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count_false</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verifier_contrainte</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_objectif_now</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_objectif_prev</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">liste_bonus_malus</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/optimiseur_rl/fonction_recompense.html#calculer_recompense"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optimiseur_rl.fonction_recompense.calculer_recompense" title="Link to this definition"></a></dt>
+<dd><p>Calcule la récompense en fonction de différents paramètres.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>count_episode (int): Le numéro de l’épisode actuel.
+count_false (int): Le nombre de violations de contraintes jusqu’à présent.
+count_true (int): Le nombre de respect des contraintes jusqu’à présent.
+verifier_contrainte (bool): Un indicateur indiquant si les contraintes sont respectées.
+vect_objectif_now (numpy.array): Le vecteur d’objectifs actuels.
+vect_objectif_prev (numpy.array): Le vecteur d’objectifs précédents.
+liste_bonus_malus (tupple): Une liste de bonus/malus pour différentes situations.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>tuple: Un tuple contenant la récompense calculée, le nouveau nombre de respect des contraintes,</dt><dd><p>et le nouveau nombre de violations de contraintes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-optimiseur_rl.reglage_hyperparametres">
+<span id="optimiseur-rl-reglage-hyperparametres-module"></span><h2>optimiseur_rl.reglage_hyperparametres module<a class="headerlink" href="#module-optimiseur_rl.reglage_hyperparametres" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="optimiseur_rl.reglage_hyperparametres.selectionner_hyperparametres">
+<span class="sig-prename descclassname"><span class="pre">optimiseur_rl.reglage_hyperparametres.</span></span><span class="sig-name descname"><span class="pre">selectionner_hyperparametres</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">choix_algorithme</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/optimiseur_rl/reglage_hyperparametres.html#selectionner_hyperparametres"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optimiseur_rl.reglage_hyperparametres.selectionner_hyperparametres" title="Link to this definition"></a></dt>
+<dd><p>Sélectionne et retourne les hyperparamètres appropriés pour un algorithme donné.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>choix_algorithme (type): L’algorithme de RL pour lequel les hyperparamètres doivent être sélectionnés.</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Un dictionnaire contenant les hyperparamètres pour l’algorithme choisi.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-optimiseur_rl.visualisation">
+<span id="optimiseur-rl-visualisation-module"></span><h2>optimiseur_rl.visualisation module<a class="headerlink" href="#module-optimiseur_rl.visualisation" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="optimiseur_rl.visualisation.AffichageGraphique">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">optimiseur_rl.visualisation.</span></span><span class="sig-name descname"><span class="pre">AffichageGraphique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">titre</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/optimiseur_rl/visualisation.html#AffichageGraphique"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optimiseur_rl.visualisation.AffichageGraphique" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Cette classe fournit des méthodes pour l’affichage de graphiques.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="optimiseur_rl.visualisation.AffichageGraphique.tracer_plot">
+<span class="sig-name descname"><span class="pre">tracer_plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/optimiseur_rl/visualisation.html#AffichageGraphique.tracer_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optimiseur_rl.visualisation.AffichageGraphique.tracer_plot" title="Link to this definition"></a></dt>
+<dd><p>Affiche un graphique simple.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optimiseur_rl.visualisation.AffichageGraphique.tracer_scatter">
+<span class="sig-name descname"><span class="pre">tracer_scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vecteur_classification</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'objectif</span> <span class="pre">3'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/optimiseur_rl/visualisation.html#AffichageGraphique.tracer_scatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optimiseur_rl.visualisation.AffichageGraphique.tracer_scatter" title="Link to this definition"></a></dt>
+<dd><p>Affiche un graphique en nuage de points.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>vecteur_classification (array-like): Vecteur de classification.
+zlabel (str, optional): L’étiquette de l’axe z pour les graphiques 3D. Par défaut, « objectif 3 ».</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optimiseur_rl.visualisation.AffichageGraphique.tracer_subplot">
+<span class="sig-name descname"><span class="pre">tracer_subplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_rows</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_actions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/optimiseur_rl/visualisation.html#AffichageGraphique.tracer_subplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optimiseur_rl.visualisation.AffichageGraphique.tracer_subplot" title="Link to this definition"></a></dt>
+<dd><p>Affiche plusieurs sous-graphiques.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>n_rows (int): Le nombre de lignes de sous-graphiques.
+n_actions (int): Le nombre d’actions.
+n_cols (int, optional): Le nombre de colonnes de sous-graphiques. Par défaut, 1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-optimiseur_rl">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-optimiseur_rl" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="main.html" class="btn btn-neutral float-left" title="main module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur 2024, Cedric Foffe.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

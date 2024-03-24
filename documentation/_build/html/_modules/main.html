@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>main &mdash; Documentation Optimiseur RL 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=05dadb3a"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/translations.js?v=d99ca74e"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Optimiseur RL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">MGA802_Python</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Optimiseur RL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Code du module</a></li>
+      <li class="breadcrumb-item active">main</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Code source de main</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">optimiseur_rl</span>
+<span class="kn">from</span> <span class="nn">stable_baselines3</span> <span class="kn">import</span> <span class="n">A2C</span><span class="p">,</span> <span class="n">DDPG</span><span class="p">,</span> <span class="n">PPO</span><span class="p">,</span> <span class="n">SAC</span><span class="p">,</span> <span class="n">TD3</span>
+<span class="kn">from</span> <span class="nn">stable_baselines3.common.vec_env</span> <span class="kn">import</span> <span class="n">DummyVecEnv</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="c1"># Ignorer les avertissements liés à l&#39;utilisation des environnements OpenAI Gym dans Stable-Baselines3</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;You provided an OpenAI Gym environment.*&quot;</span><span class="p">)</span>
+
+<span class="c1"># Affiche un message d&#39;introduction</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">MESSAGE D&#39;INTRODUCTION --------------------------------------------------------------------------------------&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ce programme permet la résolution de problèmes d&#39;optimisation mono &amp; multi-objectifs avec ou sans contraintes,</span><span class="se">\n</span><span class="s2">&quot;</span>
+      <span class="s2">&quot;à l&#39;aide des algorithmes d&#39;apprentissage par renforcement (A2C, DDPG, PPO, SAC et TD3)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Instructions pour fournir les données du problème dans un fichier YAML</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[93m </span><span class="se">\n</span><span class="s2">VOUS DEVEZ FOURNIR LES DONNEES DU PROBLEME !!!-----------!!!----------!!!-----------!!!-----------!!!&quot;</span>
+      <span class="s2">&quot;--------</span><span class="se">\033</span><span class="s2">[0m&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[93m  Veuillez compléter les données du fichier YAML &#39;deck.yaml&#39; avec vos paramètres d’entrées en suivant</span><span class="se">\n</span><span class="s2">&quot;</span>
+      <span class="s2">&quot;  rigoureusement les instructions consignées dans ledit fichier, tout en respectant la syntaxe /-save-/</span><span class="se">\033</span><span class="s2">[0m&quot;</span><span class="p">)</span>
+
+<span class="c1"># Attend que l&#39;utilisateur entre &quot;GO&quot; en lettres capitales pour indiquer que les données sont prêtes</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">executer_programme</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[95m </span><span class="se">\n</span><span class="s2">Veuillez saisir &#39;GO&#39; en lettres capitales si votre fichier de données YAML &quot;</span>
+                               <span class="s2">&quot;est prêt : </span><span class="se">\033</span><span class="s2">[0m&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">executer_programme</span> <span class="o">==</span> <span class="s1">&#39;GO&#39;</span><span class="p">:</span>
+        <span class="k">break</span>  <span class="c1"># Sortir de la boucle si les données sont valides</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">La saisie n&#39;est pas valide. Veuillez entrer &#39;GO&#39; en lettres capitales.&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../main.html#main.main">[docs]</a>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction est la fonction principale du programme, qui est appelée lorsque l&#39;on exécute le programme.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># On crée un objet YAML au sein duquel on charge une instance de LecteurYAML qui lit le fichier &quot;deck.yamL&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">optimiseur_rl</span><span class="o">.</span><span class="n">LecteurYAML</span><span class="p">(</span><span class="s1">&#39;deck.yaml&#39;</span><span class="p">)</span>
+
+    <span class="c1"># On exécute la fonction read_yaml() de notre objet LecteurYAML</span>
+    <span class="n">parsed_data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">importer_donnees_yaml</span><span class="p">()</span>
+
+    <span class="c1"># Initialisation des données d&#39;entrées pour la formulation du probleme d&#39;optimisation</span>
+    <span class="n">dict_objectifs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">dict_contraintes</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">bornes_variables</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Récupération des données du fichier YAML</span>
+    <span class="n">type_execution</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="s1">&#39;type_execution&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">type_execution</span> <span class="o">==</span> <span class="s2">&quot;entrainement&quot;</span><span class="p">:</span>
+        <span class="n">dict_objectifs</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="s1">&#39;dict_objectif_training&#39;</span><span class="p">]</span>
+        <span class="n">dict_contraintes</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="s1">&#39;dict_contrainte_training&#39;</span><span class="p">]</span>
+        <span class="n">n_variables</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="s1">&#39;n_variables_training&#39;</span><span class="p">]</span>
+        <span class="n">bornes_variables</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="s1">&#39;bornes_variable_training&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_variables</span>
+    <span class="k">elif</span> <span class="n">type_execution</span> <span class="o">==</span> <span class="s2">&quot;exploitation&quot;</span><span class="p">:</span>
+        <span class="n">dict_objectifs</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="s1">&#39;dict_objectif_exploitation&#39;</span><span class="p">]</span>
+        <span class="n">dict_contraintes</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="s1">&#39;dict_contrainte_exploitation&#39;</span><span class="p">]</span>
+        <span class="n">bornes_variables</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="s1">&#39;bornes_variable_exploitation&#39;</span><span class="p">]</span>
+
+    <span class="n">n_iterations</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="s1">&#39;n_episodes&#39;</span><span class="p">]</span>
+    <span class="n">choix_algorithme</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="s1">&#39;choix_algorithme&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Algorithme de Reinforcement Learning : </span><span class="si">{</span><span class="n">choix_algorithme</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Sélection de l&#39;algorithme RL en fonction des données du fichier YAML</span>
+    <span class="n">algo_rl</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="n">choix_algorithme</span><span class="p">]</span>
+
+    <span class="n">nombre_objectifs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dict_objectifs</span><span class="p">)</span>
+    <span class="n">nombre_variables</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bornes_variables</span><span class="p">)</span>
+    <span class="n">nombre_contraintes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dict_contraintes</span><span class="p">)</span>
+
+    <span class="c1"># Création de l&#39;environnement pour la résolution du problème d&#39;optimisation</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">optimiseur_rl</span><span class="o">.</span><span class="n">ProblemMinimizationEnv</span><span class="p">(</span><span class="n">dict_objectifs</span><span class="p">,</span> <span class="n">dict_contraintes</span><span class="p">,</span> <span class="n">bornes_variables</span><span class="p">,</span> <span class="n">n_iterations</span><span class="p">)</span>
+
+    <span class="c1"># Sélection des hyperparamètres en fonction de l&#39;algorithme choisi</span>
+    <span class="n">hyperparametres</span> <span class="o">=</span> <span class="n">optimiseur_rl</span><span class="o">.</span><span class="n">selectionner_hyperparametres</span><span class="p">(</span><span class="n">choix_algorithme</span><span class="p">)</span>
+
+    <span class="c1"># Création de l&#39;environnement vectorisé</span>
+    <span class="n">vec_env</span> <span class="o">=</span> <span class="n">DummyVecEnv</span><span class="p">([</span><span class="k">lambda</span><span class="p">:</span> <span class="n">env</span><span class="p">])</span>
+
+    <span class="c1"># Création et entraînement du modèle RL</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">algo_rl</span><span class="p">(</span><span class="s2">&quot;MlpPolicy&quot;</span><span class="p">,</span> <span class="n">vec_env</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">hyperparametres</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span><span class="n">total_timesteps</span><span class="o">=</span><span class="n">n_iterations</span><span class="p">)</span>
+
+    <span class="c1"># Conversion des résultats en tableaux numpy</span>
+    <span class="n">episode_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">episode</span><span class="p">)</span>
+    <span class="n">actions_history_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">historique_actions</span><span class="p">)</span>
+    <span class="n">objective_values_history_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">historique_valeurs_objectif</span><span class="p">)</span>
+    <span class="n">reward_history_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">historique_recompense</span><span class="p">)</span>
+    <span class="n">constraint_verifications_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">verifications_contrainte</span><span class="p">)</span>
+
+    <span class="c1"># Calcul de la somme cumulée des récompenses</span>
+    <span class="n">recompense_cumulee</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">reward_history_array</span><span class="p">)</span>
+
+    <span class="c1"># Construction du tableau de synthèse des résultats bruts</span>
+    <span class="n">resultats_bruts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">episode_array</span><span class="p">,</span> <span class="n">actions_history_array</span><span class="p">,</span> <span class="n">objective_values_history_array</span><span class="p">,</span>
+                                       <span class="n">reward_history_array</span><span class="p">,</span> <span class="n">constraint_verifications_array</span><span class="p">))</span>
+
+    <span class="c1"># Construction du tableau de synthèse des solutions faisables (celles qui respectent les contraintes) :</span>
+    <span class="c1"># Extraction des lignes de resultats_bruts où le bouléen de respect contrainte vau 1 (dernière colonne)</span>
+    <span class="n">solutions_faisable</span> <span class="o">=</span> <span class="n">resultats_bruts</span><span class="p">[</span><span class="n">resultats_bruts</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Construction du tableau de synthèse des solutions faisables avec sommation algébrique des objectifs</span>
+    <span class="c1"># Somme ligne par ligne des éléments des colonnes de la matrice des objectifs</span>
+    <span class="n">somme_colonnes_objectif</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">solutions_faisable</span><span class="p">[:,</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="n">nombre_objectifs</span><span class="p">):</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Construction de la matrice</span>
+    <span class="n">solutions_faisable_reduit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">solutions_faisable</span><span class="p">[:,</span> <span class="p">:(</span><span class="mi">1</span><span class="o">+</span><span class="n">nombre_variables</span><span class="p">)],</span> <span class="n">somme_colonnes_objectif</span><span class="p">,</span>
+                                                 <span class="n">solutions_faisable</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:]))</span>
+
+    <span class="c1"># Recherche des solution optimales iso-pondérées</span>
+    <span class="n">min_somme_objectif</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">solutions_faisable_reduit</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">solutions_optimales_iso</span> <span class="o">=</span> <span class="n">solutions_faisable_reduit</span><span class="p">[</span><span class="n">solutions_faisable_reduit</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="n">min_somme_objectif</span><span class="p">]</span>
+
+    <span class="c1"># Affichage des résultats et des graphiques</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[93m </span><span class="se">\n</span><span class="s2">---------------- SYNTHESE DES RESULTATS DE L&#39;OPTIMISATION -----------------</span><span class="se">\033</span><span class="s2">[0m&quot;</span><span class="p">)</span>
+    <span class="c1"># Définition du format pour l&#39;affichage</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;float_kind&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:.4g}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s1">&#39;int&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">%4d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">x</span><span class="p">}</span>
+    <span class="c1"># Définir le séparateur avec plus d&#39;espaces</span>
+    <span class="n">separator</span> <span class="o">=</span> <span class="s1">&#39;  &#39;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TABLEAU DES RESULTATS BRUTS (extrait de cinq lignes)--------------------&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;| Etape (1) | Variables | Ojectif(s) | Recompense (1) | Respect Contrainte (1) |&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array2string</span><span class="p">(</span><span class="n">resultats_bruts</span><span class="p">[:</span><span class="mi">5</span><span class="p">],</span> <span class="n">formatter</span><span class="o">=</span><span class="n">formatter</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="n">separator</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TABLEAU DES SOLUTIONS FAISABLES (extrait de cinq lignes) ---------------&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;| Etape | Variables | Ojectif(s) | Recompense | Respect Contrainte |&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array2string</span><span class="p">(</span><span class="n">solutions_faisable</span><span class="p">[:</span><span class="mi">5</span><span class="p">],</span> <span class="n">formatter</span><span class="o">=</span><span class="n">formatter</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="n">separator</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[95m </span><span class="se">\n</span><span class="s2">SOLUTION(s) OPTIMALE(s) ISO PONDEREE ------------------------------------</span><span class="se">\033</span><span class="s2">[0m&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;| Etape | Variables | Σ Ojectif | Recompense | Respect Contrainte |&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array2string</span><span class="p">(</span><span class="n">solutions_optimales_iso</span><span class="p">,</span> <span class="n">formatter</span><span class="o">=</span><span class="n">formatter</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="n">separator</span><span class="p">))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">---------------- VOIR GRAPHIQUES DES RESULTATS D&#39;OPTIMISATION -----------</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Affichage de la courbe de l&#39;historique des recompenses</span>
+    <span class="n">courbe_hist_recompense</span> <span class="o">=</span> <span class="n">optimiseur_rl</span><span class="o">.</span><span class="n">AffichageGraphique</span><span class="p">(</span><span class="n">episode_array</span><span class="p">,</span> <span class="n">reward_history_array</span><span class="p">,</span>
+                                                              <span class="s2">&quot;Historique des Récompenses&quot;</span><span class="p">,</span> <span class="s2">&quot;épisodes&quot;</span><span class="p">,</span>
+                                                              <span class="s2">&quot;récompenses cumulées&quot;</span><span class="p">)</span>
+    <span class="n">courbe_hist_recompense</span><span class="o">.</span><span class="n">tracer_plot</span><span class="p">()</span>
+
+    <span class="c1"># Affichage de la courbe des recompenses cumulée</span>
+    <span class="n">courbe_recompense_cumulee</span> <span class="o">=</span> <span class="n">optimiseur_rl</span><span class="o">.</span><span class="n">AffichageGraphique</span><span class="p">(</span><span class="n">episode_array</span><span class="p">,</span> <span class="n">recompense_cumulee</span><span class="p">,</span>
+                                                                 <span class="s2">&quot;Cumule des Récompenses&quot;</span><span class="p">,</span> <span class="s2">&quot;épisodes&quot;</span><span class="p">,</span>
+                                                                 <span class="s2">&quot;récompenses cumulées&quot;</span><span class="p">)</span>
+    <span class="n">courbe_recompense_cumulee</span><span class="o">.</span><span class="n">tracer_plot</span><span class="p">()</span>
+
+    <span class="c1"># SubPlot des objectif(s) et et des variables</span>
+    <span class="n">tableau_var_obj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">actions_history_array</span><span class="p">,</span> <span class="n">objective_values_history_array</span><span class="p">))</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">nombre_objectifs</span><span class="o">+</span><span class="n">nombre_variables</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">graphe_hist_variables_objectifs</span> <span class="o">=</span> <span class="n">optimiseur_rl</span><span class="o">.</span><span class="n">AffichageGraphique</span><span class="p">(</span><span class="n">episode_array</span><span class="p">,</span> <span class="n">tableau_var_obj</span><span class="p">)</span>
+        <span class="n">graphe_hist_variables_objectifs</span><span class="o">.</span><span class="n">tracer_subplot</span><span class="p">(</span><span class="n">nombre_variables</span><span class="o">+</span><span class="n">nombre_objectifs</span><span class="p">,</span> <span class="n">nombre_variables</span><span class="p">)</span>
+
+    <span class="c1"># SubPlot des historiques de variables si moins que six</span>
+    <span class="k">if</span> <span class="n">nombre_variables</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">graphe_hist_variables</span> <span class="o">=</span> <span class="n">optimiseur_rl</span><span class="o">.</span><span class="n">AffichageGraphique</span><span class="p">(</span><span class="n">episode_array</span><span class="p">,</span> <span class="n">actions_history_array</span><span class="p">)</span>
+        <span class="n">graphe_hist_variables</span><span class="o">.</span><span class="n">tracer_subplot</span><span class="p">(</span><span class="n">nombre_variables</span><span class="p">,</span> <span class="n">nombre_variables</span><span class="p">)</span>
+
+    <span class="c1"># Courbe de l&#39;historique de l&#39;objectif</span>
+    <span class="k">if</span> <span class="n">nombre_objectifs</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">graphe_hist_mono_objectif</span> <span class="o">=</span> <span class="n">optimiseur_rl</span><span class="o">.</span><span class="n">AffichageGraphique</span><span class="p">(</span><span class="n">episode_array</span><span class="p">,</span> <span class="n">objective_values_history_array</span><span class="p">,</span>
+                                                                     <span class="s2">&quot;Historique de l&#39;objectif&quot;</span><span class="p">,</span> <span class="s2">&quot;episodes&quot;</span><span class="p">,</span>
+                                                                     <span class="s2">&quot;objectif&quot;</span><span class="p">)</span>
+        <span class="n">graphe_hist_mono_objectif</span><span class="o">.</span><span class="n">tracer_plot</span><span class="p">()</span>
+
+    <span class="c1"># SubPlot des historiques des objectifs</span>
+    <span class="k">if</span> <span class="n">nombre_objectifs</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">graphe_hist_multi_objectifs</span> <span class="o">=</span> <span class="n">optimiseur_rl</span><span class="o">.</span><span class="n">AffichageGraphique</span><span class="p">(</span><span class="n">episode_array</span><span class="p">,</span> <span class="n">objective_values_history_array</span><span class="p">)</span>
+        <span class="n">graphe_hist_multi_objectifs</span><span class="o">.</span><span class="n">tracer_subplot</span><span class="p">(</span><span class="n">nombre_objectifs</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Front de Pareto bidimensionnel 2D</span>
+    <span class="k">if</span> <span class="n">nombre_objectifs</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="c1"># Front de Pareto 2D sans contraintes</span>
+        <span class="n">front_pareto2d</span> <span class="o">=</span> <span class="n">optimiseur_rl</span><span class="o">.</span><span class="n">AffichageGraphique</span><span class="p">(</span><span class="n">objective_values_history_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+                                                          <span class="n">objective_values_history_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;Front de Pareto 2D&quot;</span><span class="p">,</span>
+                                                          <span class="s2">&quot;objectif 1&quot;</span><span class="p">,</span> <span class="s2">&quot;objectif 2&quot;</span><span class="p">)</span>
+        <span class="n">front_pareto2d</span><span class="o">.</span><span class="n">tracer_scatter</span><span class="p">(</span><span class="n">constraint_verifications_array</span><span class="p">)</span>
+
+        <span class="c1"># Front de Pareto 2D avec respect des contraintes</span>
+        <span class="k">if</span> <span class="n">nombre_contraintes</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">front_pareto2d_contraint</span> <span class="o">=</span> <span class="n">optimiseur_rl</span><span class="o">.</span><span class="n">AffichageGraphique</span><span class="p">(</span><span class="n">solutions_faisable</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">4</span><span class="p">],</span>
+                                                                        <span class="n">solutions_faisable</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="s2">&quot;Front de Pareto 2D&quot;</span><span class="p">,</span>
+                                                                        <span class="s2">&quot;objectif 1&quot;</span><span class="p">,</span> <span class="s2">&quot;objectif 2&quot;</span><span class="p">)</span>
+            <span class="n">front_pareto2d_contraint</span><span class="o">.</span><span class="n">tracer_scatter</span><span class="p">(</span><span class="n">solutions_faisable</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># Front de Pareto tridimensionnel 3D</span>
+    <span class="k">elif</span> <span class="n">nombre_objectifs</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">front_pareto3d</span> <span class="o">=</span> <span class="n">optimiseur_rl</span><span class="o">.</span><span class="n">AffichageGraphique</span><span class="p">(</span><span class="n">objective_values_history_array</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">],</span>
+                                                          <span class="n">objective_values_history_array</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;Front de Pareto 3D&quot;</span><span class="p">,</span>
+                                                          <span class="s2">&quot;objectif 1&quot;</span><span class="p">,</span> <span class="s2">&quot;objectif 2&quot;</span><span class="p">)</span>
+        <span class="n">front_pareto3d</span><span class="o">.</span><span class="n">tracer_scatter</span><span class="p">(</span><span class="n">constraint_verifications_array</span><span class="p">)</span>
+
+        <span class="c1"># Front de Pareto 3D avec respect des contraintes</span>
+        <span class="k">if</span> <span class="n">nombre_contraintes</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">front_pareto3d_contraint</span> <span class="o">=</span> <span class="n">optimiseur_rl</span><span class="o">.</span><span class="n">AffichageGraphique</span><span class="p">(</span><span class="n">solutions_faisable</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span>
+                                                                        <span class="n">solutions_faisable</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="s2">&quot;Front de Pareto 3D&quot;</span><span class="p">,</span>
+                                                                        <span class="s2">&quot;objectif 1&quot;</span><span class="p">,</span> <span class="s2">&quot;objectif 2&quot;</span><span class="p">)</span>
+            <span class="n">front_pareto3d_contraint</span><span class="o">.</span><span class="n">tracer_scatter</span><span class="p">(</span><span class="n">solutions_faisable</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur 2024, Cedric Foffe.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
