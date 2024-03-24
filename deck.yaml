@@ -1,0 +1,98 @@
+#------------- PROGRAMME POUR LA RESOLUTION DES PROBLEMES D'OPTIMISATION PAR REINFORCEMENT LEARNING --------------#
+##------------------ CONFIGURATION DES PARAMETRES D'ENTREES POUR L'EXECUTION DU PROGRAMME -----------------##
+
+
+#-------- SECTION 0 -------- FORMAT DES DONNEES
+#Les fonctions objectif et les contraintes doivent être données suivant le format numpy vectorisé comme suit :
+#objectif_i   -> lambda x: expression vectorisée de la fonction objectif, avec x le vecteur de variables
+#contrainte_i -> lambda x: expression vectorisee des equations de contrainte, avec x le vecteur de variables
+
+
+#-------- SECTION 1 -------- LISTE DES FONCTIONS DE TEST POUR L'ENTRAINEMENT DE L'ALGORITHME
+#- rosenbrock_function  -> lambda x: np.sum((1 - x[:-1])**2 + 100.0 * (x[1:] - x[:-1]**2)**2)
+#- rastrigin_function   -> lambda x: 10 * len(x) + np.sum(x ** 2 - 10 * np.cos(2 * np.pi * x))
+#- griewank_function    -> lambda x: 1 + (np.sum(x ** 2) / 4000) - (np.prod(np.cos(x / np.sqrt(np.arange(1, len(x) + 1)))))
+#- sphere_function      -> lambda x: np.sum(x ** 2)
+#- schwefel_function    -> lambda x: 418.9829 * (len(x)) - np.sum(x * np.sin(np.sqrt(np.abs(x))))
+#- global_test_function -> lambda x: (np.sum((1 - x[:-1])**2 + 100.0 * (x[1:] - x[:-1]**2)**2)) +
+                                  #  (10 * len(x) + np.sum(x ** 2 - 10 * np.cos(2 * np.pi * x))) +
+                                  #  (1 + (np.sum(x ** 2) / 4000) - (np.prod(np.cos(x / np.sqrt(np.arange(1, len(x) + 1)))))) +
+                                  #  (np.sum(x ** 2)) +
+                                  #  (418.9829 * (len(x)) - np.sum(x * np.sin(np.sqrt(np.abs(x)))))
+
+
+#-------- SECTION 2 -------- CHOIX DU TYPE D'EXECUTION
+
+    # Choisir le type d'exécution du programme (" entrainement " ou " exploitation ")
+
+    #-- entrainement : executer le programme en mode entrainement revient à l'utilisation des fonctions de test présentées
+        # à la section 1 comme objectifs. Si vous choisissez ce mode, vous devez renseigner les sections 3.1 et 4.
+
+    #-- exploitation : executer le programme en mode exploitation signifie que vous voulez résoudre un problème d'optimisation
+        # spécifique. Dans ce cas, vous devez renseigner les sections 3.2 et 4.
+
+type_execution: !!str exploitation
+
+#-------- SECTION 3 -------- FORMULATION DU PROBLEME D'OPTIMISATION
+
+    #--- SECTION 3.1. --- ENTRAINEMENT DE L'ALGORITHME
+
+# Fonction(s) objectif (type dictionnaire)
+dict_objectif_training:
+  rastrigin_function: |
+    lambda x: 10 * len(x) + np.sum(x ** 2 - 10 * np.cos(2 * np.pi * x))
+
+# Equations de contraintes (type dictionnaire)
+dict_contrainte_training: {}
+
+
+# Bornes de variables (type : liste de tupple)
+n_variables_training: !!int 2
+bornes_variable_training:
+  - [-5.12, 5.12]
+
+
+      #--- SECTION 3.2. --- EXPLOITATION DE L'ALGORITHME
+
+# Fonction(s) objectif (type dictionnaire)
+dict_objectif_exploitation:
+  defl: |
+    lambda x: (((2000) * (3)**3 / (48 * (2 * 10**11) * (x[0] * (x[2]**3) / 12 + 2 * (x[1] * (x[0]**3) / 12 + 
+    ((x[2] / 2 + x[0] / 2)**2) * x[0] * x[1])))))*10**0
+  weight: |
+    lambda x: (2 * x[0] * x[1] + x[2] * x[0]) * (3) * (8000)
+
+
+# Equations de contraintes (type dictionnaire)
+dict_contrainte_exploitation:
+  stress_max: |
+    lambda x: 0.25 * (2000) * (3) * (x[2] / 2 + x[0]) / (x[0] * (x[2]**3) / 12 + 2 * (x[1] * (x[0]**3) / 12 + 
+    ((x[2] / 2 + x[0] / 2)**2) * x[0] * x[1])) <= 100*10**6
+  weight_max: |
+    lambda x: (2 * x[0] * x[1] + x[2] * x[0]) * (3) * (8000) <= 20
+    
+# Bornes de variables (type : liste de tupple)
+bornes_variable_exploitation:
+  - [0.001, 0.01]
+  - [0.05, 0.15]
+  - [0.05, 0.25]
+
+
+#-------- SECTION 4 -------- PARAMETRES DES ALGORITHMES DE RENFORCEMENT
+
+    # Choisir l'algorithme d'apprentissage (A2C, DDPG, PPO, SAC, TD3)
+          #--- A2C,  variant of Asynchronous Advantage Actor Critic (A3C) algorithm
+          #--- DDPG, Deep Deterministic Policy Gradient algorithm
+          #--- PPO,  Proximal Policy Optimization algorithm
+          #--- SAC,  Soft Actor Critic algorithm
+          #--- TD3,  Twin Delayed DDPG algorithm
+choix_algorithme: A2C
+
+    # Entrer le nombre d'episodes d'excution de l'algorithme
+          #--- si A2C,  le nombre d'episode doit être multiple de 500
+          #--- si DDPG, le nombre d'episode doit être multiple de 4
+          #--- si PPO,  le nombre d'episode doit être multiple de 2048
+          #--- si SAC,  le nombre d'episode doit être multiple de 4
+          #--- si TD3,  le nombre d'episode doit être multiple de 4
+n_episodes: !!int 2_000
+
