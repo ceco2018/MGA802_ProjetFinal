@@ -10,7 +10,48 @@ Ce programme permet la résolution des problèmes d'optimisation mono et multi-o
 
 - La version de l’OS (Windows 10, Ubuntu 20, Mac...).
 
-## 3. Instructions pour l'exécution
+## 3. Installation du module `optimiseur_rl.py`
+
+### 3.1. Installer toutes les dépendances nécessaires
+
+Pour intaller toutes les dépendances nécessaires pour le module `optimiseur_rl.py`, il faudra exécuter le fichier `requirements.txt` qui contient les dépendances, numpy, gym, Markdown, matplotlib, stable_baselines3, torch, tqdm, PyYAML et setuptools.
+
+Il faut exécuter la commande `pip install –r requirements.txt`  dans le dossier où
+se trouve `requirements.txt` dans votre terminal (pas la console python).
+
+```
+  pip install –r requirements.txt
+```
+
+Cette commande va installer tous les paquets python qui se trouvent dans le fichier
+`requirements.txt`  à partir de Pypi.
+
+### 3.2. Installer le module `optimiseur_rl.py`
+
+L'étape suivante consiste maintenant à installer le module `optimiseur_rl.py` à l’aide du fichier `setup.py` (qui fait appel au fichier `setup.cfg`).
+Pour se faire, vérifier que vous êtes bien dans le dossier où se trouve le `setup.py`, puis exécuter le `setup.py` à l’aide de l’une des deux commandes suivantes:
+
+```
+  python setup.py install
+```
+
+Avec cette commande, le paquet est installé dans votre environnement virtuel tel qu’il est au moment de l’installation.
+
+```
+  python setup.py develop
+```
+
+Avec cette commande, le paquet est installé dans votre environnement virtuel mais toutes modification au code future sera prise en compte et le paquet installé sera automatiquement mis à jour.
+
+### 3.3. Désinstaller le module `optimiseur_rl.py`
+
+Pour désinstaller le module `optimiseur_rl.py` de votre environnement virtuel, vous pouvez utiliser la commande :
+
+```
+  pip uninstall optimiseur_rl
+```
+
+## 4. Instructions pour l'exécution
 
 - Assurez-vous d'avoir installé les dépendances nécessaires spécifiées dans le fichier `requirements.txt`.
 
@@ -26,7 +67,7 @@ Ce programme permet la résolution des problèmes d'optimisation mono et multi-o
 
 - Après l'exécution, le programme affichera les résultats de l'optimisation ainsi que les graphiques correspondants.
 
-## 4. Structure du projet
+## 5. Structure du projet
 
 - `main.py`: Le script principal qui contient la logique principale du programme.
 - `optimiseur_rl.py`: Le module contenant les classes et fonctions pour la résolution de problèmes d'optimisation en utilisant l'apprentissage par renforcement.
@@ -35,7 +76,7 @@ Ce programme permet la résolution des problèmes d'optimisation mono et multi-o
 - `reglage_hyperparametres.py`: Le module contenant la fonction pour sélectionner les hyperparamètres en fonction de l'algorithme choisi.
 - `visualisation.py`: Le module contenant la classe pour l'affichage graphique des résultats de l'optimisation.
 
-## 5. Description détaillée des modules
+## 6. Description détaillée des modules
 
 ##### Module Environnement (`environnement_minimisation.py`)
 
@@ -53,7 +94,7 @@ Ce module contient une classe pour lire les données à partir d'un fichier YAML
 
 Ce module contient une classe pour l'affichage graphique des résultats de l'optimisation. Il utilise la bibliothèque Matplotlib pour créer des graphiques tels que des graphiques simples, des sous-graphiques et des graphiques en nuage de points.
 
-## 6. Choix de l'algorithme pour l'optimisation
+## 7. Choix de l'algorithme pour l'optimisation
 
 L'algorithme d'optimisation est choisi en fonction des données spécifiées dans le fichier YAML fourni. L'utilisateur peut sélectionner parmi les algorithmes suivants : 
 
@@ -67,23 +108,28 @@ L'algorithme d'optimisation est choisi en fonction des données spécifiées dan
 
 - TD3 : Twin Delayed DDPG
 
-## 7. Dépendances
+## 8. Dépendances
 
 - numpy
+- gym
+- Markdown
 - matplotlib
-- stable-baselines3
-- PyYAML 
+- stable_baselines3
+- torch
+- tqdm
+- PyYAML
+- setuptools
 
-## 8. Auteurs
+## 9. Auteurs
 
 Ce programme a été développé par Cédric Foffé Ngoufo
 Email: [cedric.foffe-ngoufo.1@ens.etsmtl.ca](mailto:cedric.foffe-ngoufo.1@ens.etsmtl.ca)
 
-## 9. Licence
+## 10-. Licence
 
 Ce projet est sous licence MIT.
 
-## 10. Ressources et Références
+## 11. Ressources et Références
 
 Arroyo, J., Manna, C., Spiessens, F., & Helsen, L. (2021, September). An Open-AI gym environment for the building optimization testing (BOPTEST) framework. In *Building Simulation 2021* (Vol. 17, pp. 175-182). IBPSA.
 
